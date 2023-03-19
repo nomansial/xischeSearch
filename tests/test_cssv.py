@@ -32,18 +32,22 @@ class TestCSV(BaseTest):
         df = pd.DataFrame(dict)
         df.to_csv(s)
 
-    def test_extract_first_ten_services(self, load_pages):
-        search_input = 'loan calculator'
+    @pytest.mark.parametrize("service", tools.getData(self))
+    def test_extract_only_first_ten_search_service(self, load_pages, service):
+        search_input = service
         k = 10
+
         self.page.search_on_home_page(search_input)
         service_name = self.page.get_service_search_results_title(search_input)
-
         first_ten = len(service_name)
         for i in range(0, first_ten - k):
             service_name.pop()
 
         print("\n""\n" "Service Names are: " "\n""\n" + "\n".join(service_name))
 
-        dict = {'Search Ketword': search_input, 'Service Name': service_name}
+        xs = search_input
+        s = ''.join(xs)
+
+        dict = {'Search Keyword': s, 'Service Name': service_name}
         df = pd.DataFrame(dict)
-        df.to_csv('Output.csv')
+        df.to_csv(s+".csv")

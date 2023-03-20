@@ -1,6 +1,8 @@
 import pytest
 import pandas as pd
 import self as self
+import os
+import glob
 
 from pages.search_page import SearchPage
 from tests.base_test import BaseTest
@@ -30,10 +32,12 @@ class TestCSV(BaseTest):
 
         dict = {'Search Keyword': s, 'Service Name': service_name}
         df = pd.DataFrame(dict)
-        df.to_csv(s)
+        df.to_csv(s + "_All_Services_Name.csv")
 
     @pytest.mark.parametrize("service", tools.getData(self))
     def test_extract_only_first_ten_search_service(self, load_pages, service):
+        path = os.getcwd()
+        csv_files = glob.glob(os.path.join(path, "*.csv"))
         search_input = service
         k = 10
 
@@ -50,4 +54,5 @@ class TestCSV(BaseTest):
 
         dict = {'Search Keyword': s, 'Service Name': service_name}
         df = pd.DataFrame(dict)
-        df.to_csv(s+".csv")
+        df.to_csv(s + "_top_ten_search_results.csv")
+        #df.to_csv('Top_Ten.csv', mode='a', header=False)

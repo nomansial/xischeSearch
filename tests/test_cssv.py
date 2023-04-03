@@ -39,7 +39,7 @@ class TestCSV(BaseTest):
         path = os.getcwd()
         csv_files = glob.glob(os.path.join(path, "*.csv"))
         search_input = service
-        k = 10
+        k = 30
 
         self.page.search_on_home_page(search_input)
         service_name = self.page.get_service_search_results_title(search_input)
@@ -54,5 +54,5 @@ class TestCSV(BaseTest):
 
         dict = {'Search Keyword': s, 'Service Name': service_name}
         df = pd.DataFrame(dict)
-        df.to_csv(s + "_top_ten_search_results.csv")
-        #df.to_csv('Top_Ten.csv', mode='a', header=False)
+        # df.to_csv(s + "_top_ten_search_results.csv")
+        df.to_csv('Top_Thirty.csv', mode='a', header=False)

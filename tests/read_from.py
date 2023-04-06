@@ -6,7 +6,7 @@ class tools:
 
     def getData(self):
 
-        workbook = openpyxl.load_workbook("keywords.xlsx")
+        workbook = openpyxl.load_workbook("C:\Users\user\PycharmProjects\xischeSearch\keywords.xlsx")
         sheet = workbook["Tab"]
         totalrows = sheet.max_row
         totalcolumns = sheet.max_column
